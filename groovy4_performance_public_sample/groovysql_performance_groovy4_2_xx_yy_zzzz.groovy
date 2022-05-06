@@ -196,7 +196,6 @@ SqlCommandsContainer insertInto_EMAIL_ExistingLdap() {
 			emailEidLookupAllButTempAndCreateSql(distinctLdapEmails.EMAILLL)
 		) +
 			
-			//e.PROVIDER_ID_IDH.val(bps.METADIRECTORY.id) +
 			e.PROVIDER_ID_IDH.val(metadirId) +
 			e.EMAILLL.val(distinctLdapEmails.EMAILLL) +
 			e.DNS.valExpression(CONCATCUR.it.callSql("select $ldpval1.DN from $ldpval1 where $ldpval1.FIELD = 'MAIL' and $ldpval1.VALUE = $distinctLdapEmails.EMAILLL order by $ldpval1.DN", '; ', e.DNS.sqlType.size))
