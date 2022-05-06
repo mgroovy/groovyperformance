@@ -149,8 +149,6 @@ protected def distinctEmailsFromLdapValRec() {
 		
 		@Override
 		GString theQuery() {
-			//			final l =  LDAP.reference()
-			//			final lv = LDAP_VAL.reference()
 			final l =  Table.reference(LDAP)
 			final lv = Table.reference(LDAP_VAL)
 			"""
