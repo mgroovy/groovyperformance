@@ -63,14 +63,7 @@ trait CreatedUpdatedColumnsTable {
 
 @TableAnnotation
 @TypeChecked
-abstract class IdhTable extends Table {
-	//	IdhTable(String name, String shortName = null, Table parentTable = null, boolean isReference = false, Schema schema = null) {
-	//		super(name, nameToShortName(name, shortName, isReference), parentTable, isReference, schema)
-	//	}
-	//	static String nameToShortName(String name, String shortName, boolean isReference, boolean isConnection = false) {
-	//		return shortName ?: (isReference ? name : TableShortNameGenerator.nameToShortName(name, isConnection))
-	//	}
-}
+abstract class IdhTable extends Table {}
 
 @TableAnnotation
 @TypeChecked
@@ -80,7 +73,6 @@ abstract class InsertIntoTable extends IdhTable {
 
 @TableAnnotation
 @TypeChecked
-//abstract class EntityTable extends InsertIntoTable implements EntityTableIntf, EntityIdTable, CreatedUpdatedColumnsTable {
 abstract class EntityTable extends InsertIntoTable implements EntityTableIntf, EntityIdTable, CreatedUpdatedColumnsTable {
 	private final static staticLog = GroovyLogger.get(EntityTable)
 	static final boolean includeFpkColsInCompareColsQ = true
@@ -124,8 +116,6 @@ class LDAP_Table extends Table {
 	final Column EMPLOYEEID = colThis('EMPLOYEEID', SqlTypes.VARCHAR2(64))
 	final Column DISPLAYNAME = colThis('DISPLAYNAME', SqlTypes.VARCHAR2(256))
 	final Column UID = colThis("UID$ldapToColumnNamePostfix", SqlTypes.VARCHAR2(256))
-	//	final Column PID = colThis(DVPERSON_KENNUNG_Table.it.PID)
-	//	final Column PERSON_EID_IDH = colThis(PERSON_KENNUNG_Table.it.PE_EID_IDH)
 	final Column PID = colThis("PID", SqlTypes.NUMBER_ID)
 	final Column PERSON_EID_IDH = colThis("PE_EID_IDH", SqlTypes.NUMBER_ID)
 	final Column DN_O = colThis('DN_O', SqlTypes.VARCHAR2(64))
@@ -175,7 +165,6 @@ protected def distinctEmailsFromLdapValRec() {
 // 2022-04-29: Stubbed!
 @TypeChecked
 GString emailEidLookupAllButTempAndCreateSql(emailExp) {
-	//emailEidFn.callLookupAllButTempAndCreateSql(emailParams(emailExp), syncIdVar, tsSyncVar)
 	"emailEidFn_STUB($emailExp)"
 }
 
@@ -184,7 +173,6 @@ GString emailEidLookupAllButTempAndCreateSql(emailExp) {
 // 2022-04-29: Semi-stubbed!
 @TypeChecked
 void logInsertIntoTable(SqlCommandsContainer scc, final String what, final Table table) {
-	//scc << copyData.logInsertIntoTableSql(what, table)
 	final DbLogger dbLogger = LOG_MSG_Procedure.it
 	dbLogger.logInfo("insert into: $what -> $table.nonRefParentTable")
 }
@@ -193,9 +181,7 @@ void logInsertIntoTable(SqlCommandsContainer scc, final String what, final Table
 /*
 		2022-04-29: Performance of insertInto_EMAIL_ExistingLdap is 3s in Groovy 3.0.10 vs 6s in Groovy 4.0.1
 */
-//@TypeChecked
 SqlCommandsContainer insertInto_EMAIL_ExistingLdap() {
-	//final scc = copyData.createSqlCommandsContainer("insertInto_EMAIL_ExistingLdap")
 	final scc = SqlCommandsContainer.create("insertInto_EMAIL_ExistingLdap")
 	
 	final destTable = EMAIL.tempTable
@@ -249,8 +235,6 @@ final int nrLoops = 5
 final int nrLoopsInner = 100
 String sql = null
 
-//BigDecimal dt_all = 0
-
 final dtList = []
 
 for(int i0=0; i0 < nrLoops; i0++) {
@@ -264,7 +248,6 @@ for(int i0=0; i0 < nrLoops; i0++) {
 	final dt = sw.elapsedMilliseconds/nrLoopsInner
 	println "$i0) dt = $dt ms"
 	dtList << dt
-	//dt_all += dt
 }
 
 println NW(dtList)
